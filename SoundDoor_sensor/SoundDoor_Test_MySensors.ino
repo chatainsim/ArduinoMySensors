@@ -4,7 +4,8 @@
 // Arduino Sound Detection Sensor Module
 
 // Door sensor come from:
-// 
+// MySensors website
+// http://www.mysensors.org/build/binary
 
 #include <MySensor.h>
 #include <SPI.h>
