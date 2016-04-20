@@ -48,7 +48,7 @@ void loop ()
   if (value != oldValue) {
      Serial.print("Door value: ");
      Serial.println(value);
-     //gw.send(msgdoor.set(value==HIGH ? 1 : 0));
+     gw.send(msgdoor.set(value==HIGH ? 1 : 0));
      oldValue = value;
   }
   if (soundDetectedVal == LOW) // If we hear a sound
@@ -57,7 +57,7 @@ void loop ()
     // The following is so you don't scroll on the output screen
     if (!bAlarm){
       Serial.println("LOUD, LOUD");
-      //gw.send(msgring.set(OPEN)); 
+      gw.send(msgring.set(OPEN)); 
       bAlarm = true;
     }
   }
@@ -65,7 +65,7 @@ void loop ()
   {
     if( (millis()-lastSoundDetectTime) > soundAlarmTime  &&  bAlarm){
       Serial.println("quiet");
-      //gw.send(msgring.set(CLOSE)); 
+      gw.send(msgring.set(CLOSE)); 
       bAlarm = false;
     }
   }
