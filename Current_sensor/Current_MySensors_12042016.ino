@@ -39,10 +39,10 @@ void incomingMessage(const MyMessage &message)
 
 void presentation()
 {  
-  gw.begin(incomingMessage);
-  gw.sendSketchInfo("Energy Meter", "1.1");  // Send the sketch version information to the gateway and Controller
-  gw.present(CHILD_ID, S_POWER);   // Register this device as power sensor
-  gw.request(CHILD_ID, V_VAR1);
+  begin(incomingMessage);
+  sendSketchInfo("Energy Meter", "1.1");  // Send the sketch version information to the gateway and Controller
+  present(CHILD_ID, S_POWER);   // Register this device as power sensor
+  request(CHILD_ID, V_VAR1);
   emon1.current(PIN_ANALOG_I, 30.0);       // Current: input pin, calibration.
 }
 
@@ -70,11 +70,11 @@ void loop()
   { 
     power = Irms*232.0;
     if (debug) Serial.println("Sending data ...");
-    gw.send(IrmsMsg.set(power,1));
+    send(IrmsMsg.set(power,1));
     Serial.println(Irms*232.0);
     nrj += (power*SEND_FREQUENCY/1000)/3.6E6;
-    gw.send(kWhMsg.set(nrj,5));
-    gw.send(pcMsg.set(nrj,5));
+    send(kWhMsg.set(nrj,5));
+    send(pcMsg.set(nrj,5));
     lastSend = now;
     index = 0;
     old_nrj=nrj;
@@ -83,7 +83,7 @@ void loop()
  else if (sendTime && !pcReceived)
  {
   if (debug) Serial.println("DEBUG AGAIN ...");
-  gw.request(CHILD_ID, V_VAR1);
+  request(CHILD_ID, V_VAR1);
   lastSend=now;
   index=0;
   onyva=true;
