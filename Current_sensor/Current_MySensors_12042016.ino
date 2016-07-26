@@ -1,9 +1,13 @@
+#define MY_RADIO_NRF24
+
 // EmonLibrary examples openenergymonitor.org, Licence GNU GPL V3  ***/
 #include <SPI.h>
 #include <MySensor.h>  
 #include "EmonLib.h"             // Include Emon Library
 EnergyMonitor emon1;             // Create an instance
-#define CHILD_ID 99
+#define MY_NODE_ID 99
+// #define CHILD_ID 99
+#define MY_LEDS_BLINKING_FEATURE
 #define PIN_ANALOG_I A2
 MySensor gw;
 unsigned long lastSend;
@@ -33,10 +37,10 @@ void incomingMessage(const MyMessage &message)
   }
 }
 
-void setup()
+void presentation()
 {  
   gw.begin(incomingMessage);
-  gw.sendSketchInfo("Energy Meter", "1.0");  // Send the sketch version information to the gateway and Controller
+  gw.sendSketchInfo("Energy Meter", "1.1");  // Send the sketch version information to the gateway and Controller
   gw.present(CHILD_ID, S_POWER);   // Register this device as power sensor
   gw.request(CHILD_ID, V_VAR1);
   emon1.current(PIN_ANALOG_I, 30.0);       // Current: input pin, calibration.
